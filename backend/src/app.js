@@ -7,18 +7,11 @@ import employeeRouter from "./routes/employee.router.js";
 import taskRouter from "./routes/tasks.router.js";
 import attendanceRouter from "./routes/attendance.routes.js"
 
-const allowedOrigins = process.env.CORS_ORIGINS.split(',');
 
 app.use(cors({
-  origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-          callback(null, true);
-      } else {
-          callback(new Error('Not allowed by CORS'));
-      }
-  },
+  origin: process.env.CORS_ORIGIN,
   credentials: true
-}));
+}))
 
 app.use(express.json({limit: "16kb"}));
 app.use(express.urlencoded({extended: true, limit: "16kb"}));
