@@ -16,6 +16,7 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  
   const menuItems = [
     { name: "Dashboard", slug: "/dashboard", Icon: Home },
     { name: "Profile", slug: "/profile", Icon: User },
@@ -35,6 +36,22 @@ const Sidebar = () => {
   }, [tasksAssignedToEmployee]);
 
   
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsCollapsed(true);
+      } else {
+        setIsCollapsed(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleLogout = () => {
     Cookies.remove('token');
     navigate('/login');
